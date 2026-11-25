@@ -14,6 +14,10 @@ ENTRY = (
 
 
 def main() -> None:
+    # The gate only accepts 1-200 characters: refuse to write an
+    # over-long line rather than submit an entry that cannot be valid.
+    if not 1 <= len(ENTRY) <= 200:
+        raise ValueError(f"entry is {len(ENTRY)} characters, must be 1-200")
     os.makedirs("/output", exist_ok=True)
     path = "/output/entry.txt"
     with open(path, "w", encoding="utf-8", newline="\n") as handle:
